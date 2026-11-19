@@ -23,6 +23,7 @@
 --purple-f:#EEEDFE;--purple-s:#534AB7;--purple-t:#3C3489;
 --blue-f:#E6F1FB;--blue-s:#185FA5;--blue-t:#0C447C;
 --gray-f:#F1EFE8;--gray-s:#5F5E5A;--gray-t:#444441;
+--lime-f:#E4F5C8;--lime-s:#5E9A1A;--lime-t:#2F5208;
 color-scheme:light dark;
 }
 @media (prefers-color-scheme:dark){:root{
@@ -33,6 +34,7 @@ color-scheme:light dark;
 --purple-f:#3C3489;--purple-s:#AFA9EC;--purple-t:#EEEDFE;
 --blue-f:#0C447C;--blue-s:#85B7EB;--blue-t:#E6F1FB;
 --gray-f:#444441;--gray-s:#B4B2A9;--gray-t:#F1EFE8;
+--lime-f:#4D7A10;--lime-s:#B5E06A;--lime-t:#F4FBE6;
 }}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--text-primary)}
@@ -63,8 +65,9 @@ svg text{font-family:inherit}
 .c-purple>circle,.c-purple>rect{fill:var(--purple-f);stroke:var(--purple-s)}.c-purple>text{fill:var(--purple-t)}
 .c-blue>circle,.c-blue>rect{fill:var(--blue-f);stroke:var(--blue-s)}.c-blue>text{fill:var(--blue-t)}
 .c-gray>circle,.c-gray>rect{fill:var(--gray-f);stroke:var(--gray-s)}.c-gray>text{fill:var(--gray-t)}
+.c-lime>circle,.c-lime>rect{fill:var(--lime-f);stroke:var(--lime-s)}.c-lime>text{fill:var(--lime-t)}
 circle.c-coral{fill:var(--coral-f);stroke:var(--coral-s)}circle.c-purple{fill:var(--purple-f);stroke:var(--purple-s)}
-circle.c-blue{fill:var(--blue-f);stroke:var(--blue-s)}circle.c-gray{fill:var(--gray-f);stroke:var(--gray-s)}
+circle.c-blue{fill:var(--blue-f);stroke:var(--blue-s)}circle.c-gray{fill:var(--gray-f);stroke:var(--gray-s)}circle.c-lime{fill:var(--lime-f);stroke:var(--lime-s)}
 </style>
 </head>
 <body>
@@ -81,7 +84,8 @@ circle.c-blue{fill:var(--blue-f);stroke:var(--blue-s)}circle.c-gray{fill:var(--g
 <div class="legend">
 <span><svg width="12" height="12" aria-hidden="true"><circle class="c-coral" cx="6" cy="6" r="5" stroke-width="1"/></svg>Ⅰ（キーのルート）</span>
 <span><svg width="12" height="12" aria-hidden="true"><circle class="c-purple" cx="6" cy="6" r="5" stroke-width="1"/></svg>メジャーコード</span>
-<span><svg width="12" height="12" aria-hidden="true"><circle class="c-blue" cx="6" cy="6" r="5" stroke-width="1"/></svg>マイナーコード</span>
+<span><svg width="12" height="12" aria-hidden="true"><circle class="c-blue" cx="6" cy="6" r="5" stroke-width="1"/></svg>マイナーコード（Ⅱm・Ⅲm）</span>
+<span><svg width="12" height="12" aria-hidden="true"><circle class="c-lime" cx="6" cy="6" r="5" stroke-width="1"/></svg>Ⅵm</span>
 <span><svg width="12" height="12" aria-hidden="true"><circle class="c-gray" cx="6" cy="6" r="5" stroke-width="1"/></svg>m(♭5)</span>
 </div>
 <p class="note">複数タップで同時に強調、もう一度タップで解除</p>
@@ -111,7 +115,7 @@ function seg(id,k){const el=document.getElementById(id);el.querySelectorAll('but
 seg('mode','mode');seg('type','type');
 document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const s=+b.dataset.s;if(st.sel.has(s))st.sel.delete(s);else st.sel.add(s);draw();});
 document.getElementById('fn').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const g=b.dataset.g;if(g==='clr'){st.sel.clear();}else{const m=GRP[g];const allOn=m.every(x=>st.sel.has(x));m.forEach(x=>allOn?st.sel.delete(x):st.sel.add(x));}draw();});
-function cat(d){if(d===0)return'c-coral';if(d===3||d===4)return'c-purple';if(d===6)return'c-gray';return'c-blue';}
+function cat(d){if(d===0)return'c-coral';if(d===3||d===4)return'c-purple';if(d===5)return'c-lime';if(d===6)return'c-gray';return'c-blue';}
 function kpc(){const k=KEYS[st.key];return(LPC[k[1]]+k[2]+12)%12;}
 function noteName(deg){const k=KEYS[st.key];const l=(k[1]+deg)%7;const t=(kpc()+STEP[deg])%12;let a=t-LPC[l];if(a>6)a-=12;if(a<-6)a+=12;return LET[l]+(a===1?'♯':a===-1?'♭':'');}
 function draw(){
